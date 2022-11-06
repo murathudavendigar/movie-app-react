@@ -18,8 +18,6 @@ const NavbarComp = () => {
     setUserContext({ email: "", password: "" });
   };
 
-  console.log(userContext);
-
   return (
     <>
       <Navbar>
@@ -30,15 +28,19 @@ const NavbarComp = () => {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             {!userContext.email && !localStorage.getItem("name") ? (
-              <Button className="me-2" onClick={() => navigate("/login")}>
-                Login
-              </Button>
+              <div>
+                <Button
+                  className="me-2 btn-success"
+                  onClick={() => navigate("/login")}>
+                  Login
+                </Button>
+                <Button className="btn-warning">Register</Button>
+              </div>
             ) : (
-              <Button className="me-2" onClick={() => logOut()}>
+              <Button className="btn-danger" onClick={() => logOut()}>
                 Logout
               </Button>
             )}
-            <Button>Register</Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>

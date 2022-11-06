@@ -9,6 +9,7 @@
 .movieImage {
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .overview {
@@ -25,4 +26,8 @@
 
 .cardMovie:hover .overview {
   transform: translateY(-320px);
+}
+
+.infoMovie {
+  background-color: rgba(0, 110, 255, 0.575);
 }
