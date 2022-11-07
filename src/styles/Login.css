@@ -1,21 +1,23 @@
 .buttoN {
-  background-color: rgb(248, 249, 250);
-  color: black;
+  background-color: white !important;
+  color: black !important;
+  width: 98% !important;
 }
 
 .buttoN:hover {
-  background-color: green;
+  background-color: green !important;
+  color: white !important;
 }
 
 .buttonGoogle {
-  background-color: burlywood;
-  width: 50%;
-  border-radius: 15px;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
+  background-color: burlywood !important;
+  width: 50% !important;
+  border-radius: 15px !important;
+  padding: 0.5rem !important;
+  margin-bottom: 1rem !important;
 }
 
 .buttonGoogle:hover {
-  background-color: white;
-  color: black;
+  background-color: white !important;
+  color: black !important;
 }
