@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "../styles/MovieDetail.css";
 
 const MovieDetail = () => {
   const { state: movieItem } = useLocation();
@@ -7,7 +8,7 @@ const MovieDetail = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-evenly m-3">
+      <div className="d-flex justify-content-evenly m-3 detail-movie">
         <div className="imageDetails">
           <img
             src={`https://image.tmdb.org/t/p/w1280${movieItem.poster_path}`}

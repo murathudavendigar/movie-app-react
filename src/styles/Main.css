@@ -21,7 +21,7 @@
   transition: all 0.4s;
   width: 300px;
   height: 320px;
-  transform: translateX(-300px), translateY(-320px);
+  transform: translateX(-300px);
 }
 
 .cardMovie:hover .overview {
@@ -30,4 +30,8 @@
 
 .infoMovie {
   background-color: rgba(0, 110, 255, 0.575);
+}
+
+.card-movie-name {
+  height: 90px;
 }

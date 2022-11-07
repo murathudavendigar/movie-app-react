@@ -65,6 +65,7 @@ const Main = () => {
                   }
                   alt=""
                   width="300px"
+                  height="450px"
                 />
                 <div className="overview">
                   <h2>Overview</h2>
@@ -72,15 +73,17 @@ const Main = () => {
                 </div>
               </div>
               <div className="infoMovie d-flex justify-content-between align-items-center ">
-                <h3 className="d-flex ">{movieItem.original_title}</h3>
+                <h3 className="d-flex card-movie-name justify-content-center align-items-center">
+                  {movieItem.original_title}
+                </h3>
                 {(!userContext.email && !localStorage.getItem("name")) ||
                   (movieItem.vote_average > 8.0 ? (
                     <h2 className="btn btn-success">
-                      {movieItem.vote_average.toFixed(1)}
+                      <b>{movieItem.vote_average.toFixed(1)}</b>
                     </h2>
                   ) : (
                     <h2 className="btn btn-warning">
-                      {movieItem.vote_average.toFixed(1)}
+                      <b>{movieItem.vote_average.toFixed(1)}</b>
                     </h2>
                   ))}
               </div>
@@ -90,13 +93,13 @@ const Main = () => {
       </div>
       <div className=" d-flex justify-content-center p-4">
         <button
-          className="btn btn-danger"
+          className="btn btn-danger me-3"
           onClick={() => setPageNumber(pageNumber - 1)}>
           -
         </button>
         <h3>{pageNumber}</h3>
         <button
-          className="btn btn-success"
+          className="btn btn-success ms-3"
           onClick={() => setPageNumber(pageNumber + 1)}>
           +
         </button>

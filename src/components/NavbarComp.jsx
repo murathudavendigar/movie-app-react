@@ -6,6 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../auth/firebase";
 import { LoginContext } from "../context/AuthContext";
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
 
 const NavbarComp = () => {
   const navigate = useNavigate();
@@ -26,6 +27,14 @@ const NavbarComp = () => {
             Movie App <small className="fs-6">Captain Price</small>
           </Navbar.Brand>
           <Navbar.Toggle />
+          <BootstrapSwitchButton
+            checked={true}
+            onstyle="outline-success"
+            offstyle="outline-dark"
+            onlabel="Day"
+            offlabel="Night"
+            size="md"
+          />
           <Navbar.Collapse className="justify-content-end">
             {!userContext.email && !localStorage.getItem("name") ? (
               <div>
