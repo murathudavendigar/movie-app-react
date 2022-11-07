@@ -22,7 +22,7 @@ const NavbarComp = () => {
     <>
       <Navbar>
         <Container>
-          <Navbar.Brand href="/">
+          <Navbar.Brand onClick={() => navigate("/")} className="btn">
             Movie App <small className="fs-6">Captain Price</small>
           </Navbar.Brand>
           <Navbar.Toggle />
@@ -34,7 +34,11 @@ const NavbarComp = () => {
                   onClick={() => navigate("/login")}>
                   Login
                 </Button>
-                <Button className="btn-warning">Register</Button>
+                <Button
+                  className="btn-warning"
+                  onClick={() => navigate("/register")}>
+                  Register
+                </Button>
               </div>
             ) : (
               <Button className="btn-danger" onClick={() => logOut()}>

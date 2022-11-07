@@ -59,7 +59,10 @@ const Main = () => {
                 className="movieImage"
                 onClick={() => navigate("/details", { state: movieItem })}>
                 <img
-                  src={`https://image.tmdb.org/t/p/w1280${movieItem.poster_path}`}
+                  src={
+                    `https://image.tmdb.org/t/p/w1280${movieItem.poster_path}` ||
+                    `https://motivatevalmorgan.com/wp-content/uploads/2016/06/default-movie.jpg`
+                  }
                   alt=""
                   width="300px"
                 />

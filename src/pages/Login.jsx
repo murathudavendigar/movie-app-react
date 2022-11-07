@@ -1,20 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import {
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import { auth, signInWithGoogle } from "../auth/firebase";
-import NavbarComp from "../components/NavbarComp";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../context/AuthContext";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
+import { Button } from "react-bootstrap";
+import { FcGoogle } from "react-icons/fc";
+import "../styles/Login.css";
 
 const Login = () => {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [loginControl, setLoginControl] = useState(true);
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
@@ -40,22 +42,6 @@ const Login = () => {
   };
   //! SIGN GOOGLE ////////////////////
 
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-
-      setUserContext({ email: registerEmail, password: registerPassword });
-
-      console.log(user);
-      navigate("/");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(
@@ -66,55 +52,55 @@ const Login = () => {
       console.log(user);
 
       setUserContext({ email: loginEmail, password: loginPassword });
+      setLoginControl(true);
       navigate(-1);
     } catch (error) {
-      console.log(error.message);
+      setLoginControl(false);
     }
-  };
-  const logout = async () => {
-    await signOut(auth);
-    localStorage.clear();
   };
 
   return (
-    <div>
-      <div>
-        <h3> Register User </h3>
-        <input
-          placeholder="Email..."
-          onChange={(e) => setRegisterEmail(e.target.value)}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(e) => setRegisterPassword(e.target.value)}
-        />
+    <div className="container">
+      <div className="d-flex row justify-content-center g-3 bg-primary col-12">
+        <h3 className="text-center mb-4"> Login </h3>
+        <FloatingLabel
+          controlId="floatingInput"
+          label="Email address"
+          className="mb-3">
+          <Form.Control
+            type="email"
+            placeholder="name@example.com"
+            onChange={(e) => setLoginEmail(e.target.value)}
+            required
+          />
+        </FloatingLabel>
+        <FloatingLabel controlId="floatingPassword" label="Password">
+          <Form.Control
+            type="password"
+            placeholder="Password..."
+            onChange={(e) => setLoginPassword(e.target.value)}
+            required
+          />
+        </FloatingLabel>
+        {loginControl ? (
+          <Button className="buttoN" onClick={login}>
+            Login
+          </Button>
+        ) : (
+          <>
+            <h1 className="text-center display-6 text-light mb-0">
+              Wrong Input
+            </h1>
+            <Button className="btn-danger" onClick={login}>
+              Login
+            </Button>
+          </>
+        )}
 
-        <button onClick={register}> Create User</button>
+        <Button onClick={signGoogle} className="buttonGoogle">
+          <FcGoogle /> Sign In With Googe
+        </Button>
       </div>
-
-      <div>
-        <h3> Login </h3>
-        <input
-          placeholder="Email..."
-          onChange={(e) => setLoginEmail(e.target.value)}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(e) => setLoginPassword(e.target.value)}
-        />
-
-        <button onClick={login}> Login</button>
-      </div>
-      <input type="text" />
-      <div>
-        <button onClick={signGoogle}>Sign In With Googe</button>
-        <h1>{localStorage.getItem("name")}</h1>
-        <h1>{localStorage.getItem("email")}</h1>
-        <img src={localStorage.getItem("profilePic")} alt="" />
-      </div>
-      <h4> User Logged In: </h4>
-      {user?.email}
-      <button onClick={logout}> Sign Out </button>
     </div>
   );
 };
