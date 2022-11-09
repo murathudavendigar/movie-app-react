@@ -1,105 +1,94 @@
-import { useContext, useEffect, useState } from "react";
-import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { auth, signInWithGoogle } from "../auth/firebase";
+import { useState } from "react";
+import { signIn, signUpGoogle } from "../auth/firebase";
 import { useNavigate } from "react-router-dom";
-import { LoginContext } from "../context/AuthContext";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
-import { Button } from "react-bootstrap";
-import { FcGoogle } from "react-icons/fc";
-import "../styles/Login.css";
+import { Link } from "react-router-dom";
+import GoogleIcon from "../assets/GoogleIcon";
 
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [loginControl, setLoginControl] = useState(true);
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-  }, []);
-
-  //! Context API  //////////////////
-
-  const { userContext, setUserContext } = useContext(LoginContext);
-
-  //! Context API ////////////////////
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signIn(loginEmail, loginPassword, navigate);
+    console.log(loginEmail, loginPassword);
+  };
 
   //! SIGN GOOGLE ///////////////////
   const signGoogle = () => {
-    signInWithGoogle();
-    const nameGoogle = localStorage.getItem("name");
-    setUserContext({ email: nameGoogle, password: "" });
-    navigate(-1);
+    signUpGoogle(navigate);
   };
   //! SIGN GOOGLE ////////////////////
 
-  const login = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      console.log(user);
-
-      setUserContext({ email: loginEmail, password: loginPassword });
-      setLoginControl(true);
-      navigate(-1);
-    } catch (error) {
-      setLoginControl(false);
-    }
-  };
-
   return (
-    <div className="container">
-      <div className="d-flex row justify-content-center g-3 bg-primary col-12">
-        <h3 className="text-center mb-4"> Login </h3>
-        <FloatingLabel
-          controlId="floatingInput"
-          label="Email address"
-          className="mb-3">
-          <Form.Control
-            type="email"
-            placeholder="name@example.com"
-            onChange={(e) => setLoginEmail(e.target.value)}
-            required
-          />
-        </FloatingLabel>
-        <FloatingLabel controlId="floatingPassword" label="Password">
-          <Form.Control
-            type="password"
-            placeholder="Password..."
-            onChange={(e) => setLoginPassword(e.target.value)}
-            required
-          />
-        </FloatingLabel>
-        {loginControl ? (
-          <Button className="buttoN" onClick={login}>
-            Login
-          </Button>
-        ) : (
-          <>
-            <h1 className="text-center display-6 text-light mb-0">
-              Wrong Input
-            </h1>
-            <Button className="btn-danger" onClick={login}>
-              Login
-            </Button>
-          </>
-        )}
-
-        <Button onClick={signGoogle} className="buttonGoogle">
-          <FcGoogle /> Sign In With Googe
-        </Button>
+    <div className="flex justify-center">
+      <div className="form-image hidden md:block">
+        <img
+          src="https://picsum.photos/800/800"
+          alt="sample-movie"
+          className="object-cover h-screen w-full"
+        />
+      </div>
+      <div className="overflow-hidden flex-1 h-screen justify-center items-center bg-[#23242a]">
+        <div
+          className={`mt-[10vh] mx-auto overflow-hidden relative w-[380px] h-[500px] rounded-[8px] bg-[#1c1c1c] before:content-[""] before:absolute before:w-[380px] before:h-[420px] before:top-[-50%] before:left-[-50%] after:content-[""] after:absolute after:w-[380px] after:h-[420px] after:top-[-50%] after:left-[-50%] custom-linear-gradient`}>
+          <form
+            className="absolute inset-[2px] rounded-[8px] bg-[#28292d] z-[10] form flex flex-col p-20"
+            onSubmit={handleSubmit}>
+            <h2 className="text-[#ff4b45] text-2xl font-[500] text-center tracking-[0.1em]">
+              Sign in
+            </h2>
+            <div className="relative w-[300px] mt-[35px] inputbox">
+              <input
+                type="email"
+                required
+                className="relative w-[100%] inputbox-input bg-transparent outline-none text-[#23242a] font-[1em] tracking-[0.05em]"
+                onChange={(e) => setLoginEmail(e.target.value)}
+              />
+              <span className="absolute left-0 inputbox-span font-[1em] text-[#8f8f8f] tracking-[0.05em]">
+                Email
+              </span>
+              <i className="absolute left-0 bottom-0 w-[100%] h-[2px] bg-[#ff4b45] rounded-[4px]"></i>
+            </div>
+            <div className="relative w-[300px] mt-[35px] inputbox">
+              <input
+                type="password"
+                required
+                className="relative w-[100%] inputbox-input bg-transparent outline-none text-[#23242a] font-[1em] tracking-[0.05em]"
+                onChange={(e) => setLoginPassword(e.target.value)}
+              />
+              <span className="absolute left-0 inputbox-span font-[1em] text-[#8f8f8f] tracking-[0.05em]">
+                Password
+              </span>
+              <i className="absolute left-0 bottom-0 w-[100%] h-[2px] bg-[#ff4b45] rounded-[4px]"></i>
+            </div>
+            <div className="flex justify-between">
+              <span
+                role="button"
+                className="links-a font-[0.75em] cursor-pointer decoration-none text-[#8f8f8f]">
+                Forgot Password
+              </span>
+              <Link
+                className="links-a font-[0.75em] cursor-pointer decoration-none text-[#8f8f8f]"
+                to="/register">
+                Sign Up
+              </Link>
+            </div>
+            <input
+              className="border-none outline-none bg-[#ff4b45] custom-input w-[100px] mt-[10px] rounded-[4px] font-[600] cursor-pointer"
+              type="submit"
+              value="Login"
+            />
+            <button
+              className="flex justify-between border-none outline-none bg-[#ff4b45] custom-input w-[300px] mt-[15px] rounded-[4px] font-[600] cursor-pointer"
+              type="button"
+              onClick={signGoogle}>
+              Continue with Google
+              <GoogleIcon color="currentColor" />
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

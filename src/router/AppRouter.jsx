@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavbarComp from "../components/NavbarComp";
 import AuthContext from "../context/AuthContext";
@@ -17,12 +18,13 @@ const AppRouter = () => {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/details" element={<PrivateRouter />}>
+          <Route path="/details/:id" element={<PrivateRouter />}>
             <Route path="" element={<MovieDetail />} />
           </Route>
           <Route path="/similar" element={<SimilarMovies />} />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </AuthContext>
   );
 };

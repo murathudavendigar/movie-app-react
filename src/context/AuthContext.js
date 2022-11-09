@@ -1,17 +1,24 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { userObserver } from "../auth/firebase";
 
 export const LoginContext = createContext();
 
-const AuthContext = ({ children }) => {
-  const [userContext, setUserContext] = useState({
-    email: "",
-    password: "",
-  });
+//! Custom Hook ile
+export const useAuthContext = () => {
+  return useContext(LoginContext);
+};
 
-  const values = { userContext, setUserContext };
+const AuthContext = ({ children }) => {
+  const [userContext, setUserContext] = useState(false);
+
+  useEffect(() => {
+    userObserver(setUserContext);
+  }, []);
 
   return (
-    <LoginContext.Provider value={values}>{children}</LoginContext.Provider>
+    <LoginContext.Provider value={{ userContext }}>
+      {children}
+    </LoginContext.Provider>
   );
 };
 

@@ -1,18 +1,11 @@
-import { useContext } from "react";
-import { Outlet } from "react-router-dom";
-import { LoginContext } from "../context/AuthContext";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 const PrivateRouter = () => {
-  const { userContext, setUserContext } = useContext(LoginContext);
+  const { userContext } = useAuthContext();
 
   return (
-    <div>
-      {!userContext.email && !localStorage.getItem("name") ? (
-        alert("Please Login")
-      ) : (
-        <Outlet />
-      )}
-    </div>
+    <div>{!userContext ? <Navigate to="/login" replace /> : <Outlet />}</div>
   );
 };
 export default PrivateRouter;
