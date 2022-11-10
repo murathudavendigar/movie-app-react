@@ -9,7 +9,7 @@ import Register from "../pages/Register";
 import SimilarMovies from "../pages/SimilarMovies";
 import PrivateRouter from "./PrivateRouter";
 import Contact from "../pages/Contact";
-import About from "../pages/About";
+import TopRated from "../pages/TopRated";
 
 const AppRouter = () => {
   return (
@@ -20,8 +20,7 @@ const AppRouter = () => {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/about" element={<About />} />
-
+          <Route path="/toprated" element={<TopRated />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/details/:id" element={<PrivateRouter />}>
             <Route path="" element={<MovieDetail />} />

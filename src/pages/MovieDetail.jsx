@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import FsLightbox from "fslightbox-react";
 
 const MovieDetail = () => {
   const [movieDetail, setMovieDetail] = useState("");
+  const [toggler, setToggler] = useState(false);
+  const [videoID, setVideoID] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -28,6 +30,11 @@ const MovieDetail = () => {
   const imageAPI = `https://image.tmdb.org/t/p/w1280${poster_path}`;
   const defaultImage =
     "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80";
+  const videoUrl = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}&language=en-US`;
+
+  const videoLightBoxShow = videoID
+    ? `https://www.youtube.com/embed/${videoID}?autoplay=1&mute=1`
+    : `https://assets.b9.com.br/wp-content/uploads/2018/10/youtube_fail.jpg`;
 
   const getMovieDetail = async () => {
     try {
@@ -38,10 +45,21 @@ const MovieDetail = () => {
     }
   };
 
-  console.log(movieDetail);
+  const getMovieVideo = async () => {
+    try {
+      const { data } = await axios(videoUrl);
+      setVideoID(data.results[0].key);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  // console.log(movieDetail);
+  console.log(videoID);
 
   useEffect(() => {
     getMovieDetail();
+    getMovieVideo();
   }, []);
 
   return (
@@ -153,6 +171,27 @@ const MovieDetail = () => {
                     </svg>
                     Go to Movie Homepage
                   </button>
+                  <button
+                    onClick={() => setToggler(!toggler)}
+                    type="button"
+                    className="text-green-700 border border-green-700 hover:bg-green-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800 transition-all">
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                    Watch Trailer
+                  </button>
+                  <FsLightbox
+                    toggler={toggler}
+                    sources={[`${videoLightBoxShow}`]}
+                  />
                 </li>
               </ul>
             </div>

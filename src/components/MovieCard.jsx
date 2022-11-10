@@ -28,6 +28,9 @@ const MovieCard = ({ poster_path, title, overview, vote_average, id }) => {
         navigate("/details/" + id);
         !userContext && toastWarnNotify("Please login to see details");
       }}>
+      <h1 className="text-lg text-center text-bold detailsText text-white bg-green-800 ">
+        Click to Details
+      </h1>
       <div className="overflow-hidden">
         <img
           loading="lazy"

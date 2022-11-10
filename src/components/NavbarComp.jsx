@@ -34,8 +34,8 @@ const NavbarComp = () => {
               </li>
 
               <li>
-                <Link className="hover:text-gray-400" to="/about">
-                  About
+                <Link className="hover:text-gray-400" to="/toprated">
+                  Top Rated
                 </Link>
               </li>
               <li>

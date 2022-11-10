@@ -41,6 +41,17 @@ body {
   max-width: 100%;
 }
 
+.detailsText {
+  position: absolute;
+
+  width: 100%;
+  transform: translateY(-30px);
+  transition: all 0.6s;
+}
+.movie:hover .detailsText {
+  transform: translateY(0%);
+}
+
 .movie-over {
   position: absolute;
   background-color: rgba(224, 224, 224, 0.75);

@@ -32,6 +32,7 @@ const SimilarMovies = () => {
   console.log(similarMovie);
   return (
     <>
+      <div className="h-[75px]"></div>
       <div className="flex justify-center flex-wrap">
         {loading ? (
           <div
