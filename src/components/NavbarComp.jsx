@@ -1,18 +1,16 @@
-import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { logOut } from "../auth/firebase";
 import defaultAvatar from "../assets/avatar.png";
 import navbarLogo from "../assets/navbar-logo.png";
+import Switch from "./Switch";
 
 const NavbarComp = () => {
-  const navigate = useNavigate();
-
   const { userContext } = useAuthContext();
 
   return (
     <>
-      <nav className="w-full flex flex-wrap items-center justify-between py-3 bg-gray-100 text-emerald-900 shadow-lg navbar navbar-expand-lg fixed-top">
+      <nav className="w-full flex flex-wrap items-center justify-between py-3 bg-gray-100 text-emerald-900 shadow-lg navbar navbar-expand-lg fixed-top dark:bg-gray-900 dark:text-white">
         <div className="container-fluid w-full flex items-center justify-between px-6">
           <Link
             className="text-2xl  pr-2 font-semibold flex items-center gap-3"
@@ -23,14 +21,36 @@ const NavbarComp = () => {
               width="70px"
               className="hidden md:inline"
             />
-            Movie App <small className="hidden md:inline">Captain Price</small>
+            Movie Heaven
+            <small className="hidden md:inline text-sm">Captain Price</small>
           </Link>
+
+          <div>
+            <ul className="hidden lg:flex px-3 mx-auto font-semibold font-heading space-x-12">
+              <li>
+                <Link className="hover:text-gray-400" to="/">
+                  Home
+                </Link>
+              </li>
+
+              <li>
+                <Link className="hover:text-gray-400" to="/about">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-gray-400" to="/contact">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
 
           <div className="flex items-center relative">
             {userContext && (
               <h5 className="mr-2 capitalize">{userContext?.displayName}</h5>
             )}
-
+            <Switch />
             <div className="dropdown relative">
               <span
                 className="dropdown-toggle flex items-center hidden-arrow"
@@ -77,7 +97,6 @@ const NavbarComp = () => {
           </div>
         </div>
       </nav>
-      <div className="h-[75px]"></div>
     </>
   );
 };

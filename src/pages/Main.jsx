@@ -55,25 +55,58 @@ const Main = () => {
       getNewMovie();
       setSearchMovie("");
     } else if (!userContext) {
-      toastWarnNotify("please log in to see details");
+      toastWarnNotify("Please login to see details");
     } else {
-      toastWarnNotify("please enter a text");
+      toastWarnNotify("Please enter a text");
     }
   };
 
   return (
-    <>
+    <div className="h-full">
+      <div className="h-[75px]"></div>
       <form className="flex justify-center p-2 pt-5" onSubmit={handleSubmit}>
-        <input
-          type="search"
-          className="w-80 h-8 rounded-md outline-none border p-1 m-2"
-          placeholder="Search a movie..."
-          onChange={(e) => setSearchMovie(e.target.value)}
-          value={searchMovie}
-        />
-        <button className="text-white" type="submit">
+        <label
+          for="default-search"
+          class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">
           Search
-        </button>
+        </label>
+        <div class="relative pt-1">
+          <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+            <svg
+              aria-hidden="true"
+              class="w-5 h-5 text-gray-500 dark:text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input
+            type="search"
+            id="default-search"
+            class=" p-4 pl-10  text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-96"
+            placeholder="Search Movies..."
+            onChange={(e) => setSearchMovie(e.target.value)}
+          />
+          <button
+            type="submit"
+            class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Search
+          </button>
+          <div className="absolute top-0 left-0 w-full h-1 flex ">
+            <div className="h-2 bg-blue-500 flex-1 "></div>
+            <div className="h-2 bg-red-500 flex-1"></div>
+            <div className="h-2 bg-yellow-500 flex-1"></div>
+            <div className="h-2 bg-blue-500 flex-1"></div>
+            <div className="h-2 bg-green-500 flex-1"></div>
+            <div className="h-2 bg-red-500 flex-1 "></div>
+          </div>
+        </div>
       </form>
       <div className="flex justify-center flex-wrap">
         {loading ? (
@@ -88,31 +121,41 @@ const Main = () => {
       </div>
       <div className="flex flex-row space-x-2 justify-center items-center gap-3 pt-5 pb-9">
         <button
-          className="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
           type="button"
-          onClick={() => setPageNumber(pageNumber - 1)}>
-          -
+          className="text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800 rotate-180"
+          onClick={() => pageNumber > 1 && setPageNumber(pageNumber - 1)}>
+          <svg
+            aria-hidden="true"
+            className="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
         </button>
-        <p className="text-3xl">{pageNumber}</p>
+        <p className="text-3xl border-solid dark:text-lime-50">{pageNumber}</p>
         <button
-          className="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
           type="button"
+          className="text-green-700 border border-green-700 hover:bg-green-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white  dark:focus:ring-green-800"
           onClick={() => setPageNumber(pageNumber + 1)}>
-          +
+          <svg
+            aria-hidden="true"
+            className="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
 export default Main;
-
-<div class="flex space-x-2 justify-center">
-  <div>
-    <button
-      type="button"
-      class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
-      -
-    </button>
-  </div>
-</div>;

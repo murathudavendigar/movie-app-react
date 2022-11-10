@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -9,8 +9,19 @@ const MovieDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { poster_path, overview, vote_average, vote_count, release_date } =
-    movieDetail;
+  const {
+    title,
+    poster_path,
+    overview,
+    vote_average,
+    vote_count,
+    release_date,
+    homepage,
+    runtime,
+    tagline,
+    spoken_languages,
+    genres,
+  } = movieDetail;
 
   const apiKey = process.env.REACT_APP_MOVIE_API_KEY;
   const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
@@ -35,10 +46,16 @@ const MovieDetail = () => {
 
   return (
     <>
-      <div className="container px-10 mx-auto py-5">
-        <h1 className="text-center text-white text-3xl">ASD</h1>
+      <div className="h-[75px]"></div>
+      <div className="container px-10 mx-auto py-5 h-screen">
+        <h1 className="text-center dark:text-white text-3xl">{title}</h1>
+        <h1>
+          <h1 className="text-center dark:text-white  text-xl mt-1">
+            {tagline}
+          </h1>
+        </h1>
         <div className="container flex justify-center px-10">
-          <div className="flex flex-col lg:flex-row max-w-6xl rounded-lg bg-gray-100 shadow-lg">
+          <div className="flex flex-col lg:flex-row max-w-6xl rounded-lg shadow-lg    bg-white dark:bg-gray-900">
             <img
               className=" lg:w-1/3 h-96 lg:h-[600px] object-cover rounded-t-lg md:rounded-none md:rounded-l-lg"
               src={poster_path ? imageAPI : defaultImage}
@@ -46,39 +63,102 @@ const MovieDetail = () => {
             />
             <div className="p-6 flex flex-col justify-between">
               <div>
-                <h5 className="text-gray-900 text-xl font-medium mb-2">
+                <h5 className="dark:text-white  text-xl font-medium mb-2">
                   Overview
                 </h5>
-                <p className="text-gray-700 text-base mb-4">{overview}</p>
+
+                <p className="text-gray-700 dark:text-white  text-base mb-4">
+                  {overview}
+                </p>
               </div>
               <ul className="bg-gray-100 rounded-lg border border-gray-400 text-gray-900">
                 <li className="px-6 py-2 border-b border-gray-400 w-full rounded-t-lg">
-                  {"Release Date : " + release_date}
+                  <b> Release Date : </b>
+                  {release_date}
                 </li>
                 <li className="px-6 py-2 border-b border-gray-400 w-full">
-                  {"Rate : " + vote_average}
+                  <b> Rate : </b>
+                  {vote_average}
                 </li>
                 <li className="px-6 py-2 border-b border-gray-400 w-full">
-                  {"Total Vote : " + vote_count}
+                  <b> Total Vote : </b>
+                  {vote_count}
                 </li>
+                <li className="px-6 py-2 border-b border-gray-400 w-full">
+                  <b> Genre : </b>
+                  {genres?.map((item) => (
+                    <span>{item.name} </span>
+                  ))}
+                </li>
+                <li className="px-6 py-2 border-b border-gray-400 w-full">
+                  <b> Runtime : </b>
+                  {runtime} min.
+                </li>
+                <li className="px-6 py-2 border-b border-gray-400 w-full">
+                  <b> Language : </b>
+                  {spoken_languages?.map((item) => (
+                    <span>{item.name} </span>
+                  ))}
+                </li>
+
                 <li className="px-6 py-2 border-gray-400 w-full rounded-t-lg">
-                  <Link
-                    to={-1}
-                    className="text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4">
+                  <button
+                    type="button"
+                    className="text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800 transition-all"
+                    onClick={() => navigate(-1)}>
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg>
                     Go Back
-                  </Link>
+                  </button>
+                  <button
+                    type="button"
+                    className="text-yellow-700 border border-yellow-700 hover:bg-yellow-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:focus:ring-yellow-800 transition-all"
+                    onClick={() => navigate("/similar", { state: id })}>
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                    Get Similar Movies
+                  </button>
+                  <button
+                    type="button"
+                    className="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 transition-all"
+                    onClick={() => window.location.replace(homepage)}>
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                    Go to Movie Homepage
+                  </button>
                 </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      {/* SIMILAR MOVIES */}
-      <button
-        className="btn btn-outline-warning"
-        onClick={() => navigate("/similar", { state: id })}>
-        Get Similar Movie
-      </button>
     </>
   );
 };

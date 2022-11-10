@@ -4,12 +4,17 @@ import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { toastSuccessNotify } from "../helpers/ToastNotify";
+import {
+  toastErrorNotify,
+  toastSuccessNotify,
+  toastWarnNotify,
+} from "../helpers/ToastNotify";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDifcJXfsKnLaX4-3aBAvGMePvVJmHBRZ0",
@@ -42,7 +47,8 @@ export const createUser = async (email, password, navigate, displayName) => {
     toastSuccessNotify("Registered successfully!");
     console.log(userCredential);
   } catch (error) {
-    alert(error.message);
+    toastErrorNotify(error.message);
+    // alert(error.message);
   }
 };
 
@@ -53,7 +59,8 @@ export const signIn = async (email, password, navigate) => {
     navigate("/");
     toastSuccessNotify("Logged in successfully!");
   } catch (error) {
-    alert(error.message);
+    // alert(error.message);
+    toastErrorNotify(error.message);
   }
 };
 
@@ -64,16 +71,17 @@ export const userObserver = (setCurrentUser) => {
     if (user) {
       const { email, displayName, photoURL } = user;
       setCurrentUser({ email, displayName, photoURL });
-      console.log(user);
+      // console.log(user);
     } else {
       setCurrentUser(false);
-      console.log("user signed out");
+      // console.log("user signed out");
     }
   });
 };
 
 export const logOut = () => {
   signOut(auth);
+  toastErrorNotify("Logged out successfully!");
 };
 
 //! Google ile giriş
@@ -85,10 +93,26 @@ export const signUpGoogle = (navigate) => {
     .then((result) => {
       console.log(result);
       navigate("/");
-      // ...
+      toastSuccessNotify("Logged in successfully!");
     })
     .catch((error) => {
       // Handle Errors here.
-      console.log(error);
+      // console.log(error);
+      toastErrorNotify("Sorry. Try again!");
+    });
+};
+
+export const forgotPassword = (email) => {
+  //? Email yoluyla şifre sıfırlama için kullanılan firebase metodu
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      toastWarnNotify("Please check your mail box!");
+      // alert("Please check your mail box!");
+    })
+    .catch((err) => {
+      toastErrorNotify(err.message);
+      // alert(err.message);
+      // ..
     });
 };

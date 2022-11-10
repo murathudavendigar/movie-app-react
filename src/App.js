@@ -3,7 +3,7 @@ import AppRouter from "./router/AppRouter";
 
 function App() {
   return (
-    <div className="bg-slate-700">
+    <div className="dark:bg-[#232425]">
       <AppRouter />
     </div>
   );

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
+import { toastWarnNotify } from "../helpers/ToastNotify";
 
 const MovieCard = ({ poster_path, title, overview, vote_average, id }) => {
   const { userContext } = useAuthContext();
@@ -22,24 +23,27 @@ const MovieCard = ({ poster_path, title, overview, vote_average, id }) => {
     <div
       className="movie"
       onClick={() => {
-        navigate("details/" + id);
-        !userContext && alert("please log in to see details");
+        navigate("/details/" + id);
+        !userContext && toastWarnNotify("Please login to see details");
       }}>
-      <img
-        loading="lazy"
-        src={poster_path ? imageAPI : defaultImage}
-        alt="movie-card"
-      />
-      <div className="flex align-baseline justify-between p-1 text-white">
+      <div className="overflow-hidden">
+        <img
+          loading="lazy"
+          src={poster_path ? imageAPI : defaultImage}
+          alt="movie-card"
+          className="hover:scale-110 transition-all "
+        />
+      </div>
+      <div className="flex items-center justify-between p-1 text-white">
         <h5>{title}</h5>
         {userContext && (
-          <span className={`tag ${getVoteClass(vote_average)}`}>
+          <span className={`tag ${getVoteClass(vote_average)} text-lg`}>
             {vote_average.toFixed(1)}
           </span>
         )}
       </div>
       <div className="movie-over">
-        <h2>Overview</h2>
+        <h2 className="font-bold text-lg ">Overview</h2>
         <p>{overview}</p>
       </div>
     </div>

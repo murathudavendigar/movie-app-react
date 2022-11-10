@@ -8,6 +8,8 @@ import MovieDetail from "../pages/MovieDetail";
 import Register from "../pages/Register";
 import SimilarMovies from "../pages/SimilarMovies";
 import PrivateRouter from "./PrivateRouter";
+import Contact from "../pages/Contact";
+import About from "../pages/About";
 
 const AppRouter = () => {
   return (
@@ -18,6 +20,9 @@ const AppRouter = () => {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/about" element={<About />} />
+
+          <Route path="/contact" element={<Contact />} />
           <Route path="/details/:id" element={<PrivateRouter />}>
             <Route path="" element={<MovieDetail />} />
           </Route>
