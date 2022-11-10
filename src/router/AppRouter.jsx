@@ -21,12 +21,12 @@ const AppRouter = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/toprated" element={<TopRated />} />
-
           <Route path="/contact" element={<Contact />} />
           <Route path="/details/:id" element={<PrivateRouter />}>
             <Route path="" element={<MovieDetail />} />
           </Route>
           <Route path="/similar" element={<SimilarMovies />} />
+          <Route path="*" element={<Main />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />
