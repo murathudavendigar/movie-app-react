@@ -17,7 +17,7 @@ const AppRouter = () => {
       <BrowserRouter>
         <NavbarComp />
         <Routes>
-          <Route path="/home" element={<Main />} />
+          <Route path="/" index element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/toprated" element={<TopRated />} />

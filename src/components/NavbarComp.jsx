@@ -14,7 +14,7 @@ const NavbarComp = () => {
         <div className="container-fluid w-full flex items-center justify-between px-6">
           <Link
             className="text-2xl  pr-2 font-semibold flex items-center gap-3"
-            to="/home">
+            to="/">
             <img
               src={navbarLogo}
               alt="navbar-logo"
@@ -28,7 +28,7 @@ const NavbarComp = () => {
           <div>
             <ul className="hidden lg:flex px-3 mx-auto font-semibold font-heading space-x-12">
               <li>
-                <Link className="hover:text-gray-400" to="/home">
+                <Link className="hover:text-gray-400" to="/">
                   Home
                 </Link>
               </li>
