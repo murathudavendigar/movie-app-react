@@ -33,9 +33,7 @@ const Login = () => {
               <h2 className="text-4xl font-bold text-white">
                 Captain Price Movie Database
               </h2>
-              <p className="max-w-xl mt-3 text-gray-300">
-                Captain Price Movie Database
-              </p>
+              <p className="max-w-xl mt-3 text-gray-300">Welcome to Website</p>
             </div>
           </div>
         </div>

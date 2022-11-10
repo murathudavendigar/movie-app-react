@@ -13,7 +13,7 @@ body {
 }
 
 .movie {
-  background-color: #064e3b;
+  /* background-color: #064e3b; */
   border-radius: 3px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -21,6 +21,18 @@ body {
   width: 300px;
   position: relative;
   cursor: pointer;
+}
+
+.movie.green {
+  background-color: #1b5e20;
+}
+
+.movie.orange {
+  background-color: #f57f17;
+}
+
+.movie.red {
+  background-color: #7f0000;
 }
 
 .movie img {

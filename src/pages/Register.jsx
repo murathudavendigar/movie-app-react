@@ -36,7 +36,7 @@ const Register = () => {
                   Captain Price Movie Database
                 </h2>
                 <p className="max-w-xl mt-3 text-gray-300">
-                  Captain Price Movie Database
+                  Welcome to Website
                 </p>
               </div>
             </div>

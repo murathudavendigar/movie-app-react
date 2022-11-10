@@ -21,7 +21,9 @@ const MovieCard = ({ poster_path, title, overview, vote_average, id }) => {
   };
   return (
     <div
-      className="movie"
+      className={`movie ${
+        userContext ? getVoteClass(vote_average) : "bg-black pb-4"
+      }`}
       onClick={() => {
         navigate("/details/" + id);
         !userContext && toastWarnNotify("Please login to see details");
