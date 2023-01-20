@@ -67,7 +67,7 @@ To create an advanced Movie app with React and TMDB API
 ## Screenshot
 
 <p align="center">
-<a href="https://murathudavendigar.github.io/movie-app-react/"><img src="https://media-exp1.licdn.com/dms/image/C4D22AQGTsFzK9stYMQ/feedshare-shrink_800/0/1668134888295?e=1673481600&v=beta&t=tlUoj-CKS-3Q8rDQtZL5rM3iR27ucEtlfg1B--TsjxQ" alt="screenshot"></a>
+<a href="https://murathudavendigar.github.io/movie-app-react/"><img src="https://media.licdn.com/dms/image/C4D22AQG8vRoTz1pI0A/feedshare-shrink_800/0/1668135437209?e=1677110400&v=beta&t=lCMDyey6gaY_p3Mi26xBvvVJZLMeTaX31OAWZU2dlb4" alt="screenshot"></a>
 </p>
 
 ## Links
